@@ -184,7 +184,7 @@ export const HeroComponent = () => {
                                 </div>
                             </div>
                             <div className="text-center sm:text-left">
-                                <h3 className="font-bold text-lg">40K+ Happy Readers</h3>
+                                <h3 className="font-bold text-lg">10K+ Happy Readers</h3>
                                 <p className="text-sm text-gray-600">Join our growing AI-powered reading community</p>
                             </div>
                         </div>
