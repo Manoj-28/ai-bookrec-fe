@@ -23,7 +23,7 @@ export const NavBar = ({ isProfileOpen, setProfileOpen }) => {
 			<div className="h-auto bg-white border-b border-gray-200 flex flex-row md:flex-row lg:flex-row items-center justify-between px-4 md:px-6 lg:px-8 relative">
 				<div id="menu" className="w-full flex items-center justify-between md:w-auto py-4 md:py-0">
 					<a href="/" className="text-xl font-bold text-gray-800 hover:text-gray-600 transition duration-300 transform hover:scale-105 active:scale-95">
-						Bland.
+					BooksByAI
 					</a>
 					<button
 						className={`${isMobileMenuOpen ? 'hidden' : 'block'} md:hidden text-gray-600 hover:text-gray-900 transition-colors duration-300 active:scale-95 p-2 rounded-md hover:bg-gray-100`}

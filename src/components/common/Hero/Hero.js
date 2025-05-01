@@ -6,6 +6,8 @@ export const HeroComponent = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(false);
     const [showCommunityPopup, setShowCommunityPopup] = useState(false);
+    const [showRecommendationsPopup, setShowRecommendationsPopup] = useState(false);
+    const [showPersonalizationPopup, setShowPersonalizationPopup] = useState(false);
     const navigate = useNavigate();
 
     const handleSearchChange = (event) => {
@@ -59,6 +61,60 @@ export const HeroComponent = () => {
 
     return (
         <div id="webcrumbs">
+            {/* Recommendations Popup */}
+            {showRecommendationsPopup && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-lg max-w-sm w-full">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-xl font-bold">Smart Recommendations</h3>
+                            <button
+                                onClick={() => setShowRecommendationsPopup(false)}
+                                className="text-gray-500 hover:text-gray-700"
+                            >
+                                <span className="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
+                        <p className="text-gray-600 mb-4">
+                            Our AI analyzes millions of books and your reading preferences to suggest perfect matches. 
+                            The more you use it, the smarter it gets at recommending books you'll love.
+                        </p>
+                        <button
+                            onClick={() => setShowRecommendationsPopup(false)}
+                            className="bg-[#ff5533] text-white px-4 py-2 rounded-lg w-full hover:bg-[#ff6644] transition"
+                        >
+                            Got it!
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Personalization Popup */}
+            {showPersonalizationPopup && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-lg max-w-sm w-full">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-xl font-bold">Personalized Selection</h3>
+                            <button
+                                onClick={() => setShowPersonalizationPopup(false)}
+                                className="text-gray-500 hover:text-gray-700"
+                            >
+                                <span className="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
+                        <p className="text-gray-600 mb-4">
+                            We tailor recommendations based on your reading history, favorite genres, and even your mood. 
+                            Tell us what you're in the mood for and we'll find the perfect book for you.
+                        </p>
+                        <button
+                            onClick={() => setShowPersonalizationPopup(false)}
+                            className="bg-[#ff5533] text-white px-4 py-2 rounded-lg w-full hover:bg-[#ff6644] transition"
+                        >
+                            Got it!
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* Community Popup */}
             {showCommunityPopup && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -201,12 +257,18 @@ export const HeroComponent = () => {
                 </div>
                 {/* Features Grid */}
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div className="bg-gray-50 p-4 rounded-lg hover:shadow-md transition-shadow">
+                    <div 
+                        className="bg-gray-50 p-4 rounded-lg hover:shadow-md transition-shadow cursor-pointer"
+                        onClick={() => setShowRecommendationsPopup(true)}
+                    >
                         <span className="material-symbols-outlined text-2xl text-[#ff5533]">auto_awesome</span>
                         <h3 className="font-semibold mt-2">Smart Recommendations</h3>
                         <p className="text-sm text-gray-600">Powered by advanced AI algorithms</p>
                     </div>
-                    <div className="bg-gray-50 p-4 rounded-lg hover:shadow-md transition-shadow">
+                    <div 
+                        className="bg-gray-50 p-4 rounded-lg hover:shadow-md transition-shadow cursor-pointer"
+                        onClick={() => setShowPersonalizationPopup(true)}
+                    >
                         <span className="material-symbols-outlined text-2xl text-[#ff5533]">psychology</span>
                         <h3 className="font-semibold mt-2">Personalized Selection</h3>
                         <p className="text-sm text-gray-600">Tailored to your preferences</p>
