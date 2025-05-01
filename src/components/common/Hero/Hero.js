@@ -27,8 +27,7 @@ export const HeroComponent = () => {
                 const [_, count, genre] = match;
                 query = `top ${count} ${genre.trim()} books`;
             }
-
-            const response = await fetch(`http://${process.env.BACKEND_HOST}:${process.env.BACKEND_PORT}/api/llm/search`, {
+            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/api/llm/search`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -75,7 +74,7 @@ export const HeroComponent = () => {
                             </button>
                         </div>
                         <p className="text-gray-600 mb-4">
-                            Our AI analyzes millions of books and your reading preferences to suggest perfect matches. 
+                            Our AI analyzes millions of books and your reading preferences to suggest perfect matches.
                             The more you use it, the smarter it gets at recommending books you'll love.
                         </p>
                         <button
@@ -102,7 +101,7 @@ export const HeroComponent = () => {
                             </button>
                         </div>
                         <p className="text-gray-600 mb-4">
-                            We tailor recommendations based on your reading history, favorite genres, and even your mood. 
+                            We tailor recommendations based on your reading history, favorite genres, and even your mood.
                             Tell us what you're in the mood for and we'll find the perfect book for you.
                         </p>
                         <button
@@ -164,12 +163,6 @@ export const HeroComponent = () => {
                                     onChange={handleSearchChange}
                                     onKeyDown={handleKeyDown}
                                 />
-                                <button
-                                    onClick={handleSearchSubmit}
-                                    className="material-symbols-outlined text-gray-400 mr-4 cursor-pointer hover:text-gray-600 transition-transform hover:scale-110"
-                                >
-                                    tune
-                                </button>
                             </div>
                             <div className="mt-2 text-sm text-gray-500">
                                 Try: "top 5 science fiction books" or "best mystery novels"
@@ -257,7 +250,7 @@ export const HeroComponent = () => {
                 </div>
                 {/* Features Grid */}
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div 
+                    <div
                         className="bg-gray-50 p-4 rounded-lg hover:shadow-md transition-shadow cursor-pointer"
                         onClick={() => setShowRecommendationsPopup(true)}
                     >
@@ -265,7 +258,7 @@ export const HeroComponent = () => {
                         <h3 className="font-semibold mt-2">Smart Recommendations</h3>
                         <p className="text-sm text-gray-600">Powered by advanced AI algorithms</p>
                     </div>
-                    <div 
+                    <div
                         className="bg-gray-50 p-4 rounded-lg hover:shadow-md transition-shadow cursor-pointer"
                         onClick={() => setShowPersonalizationPopup(true)}
                     >

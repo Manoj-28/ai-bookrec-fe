@@ -25,7 +25,7 @@ export const DisplayBooks = () => {
     const handleSearchSubmit = async () => {
         if (!searchQuery.trim()) return;
         try {
-            const response = await fetch(`http://${process.env.BACKEND_HOST}:${process.env.BACKEND_PORT}/api/llm/search`, {
+            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/api/llm/search`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

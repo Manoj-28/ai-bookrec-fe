@@ -11,7 +11,7 @@ export const BookmarksPage = ({ openProfile }) => {
 
     const fetchBookmarks = async () => {
         try {
-            const response = await fetch(`http://${process.env.BACKEND_HOST}:${process.env.BACKEND_PORT}/api/wishlist`, {
+            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/api/wishlist`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
@@ -45,7 +45,7 @@ export const BookmarksPage = ({ openProfile }) => {
     const removeBookmark = async (wishlistId) => {
         setBookmarkLoading(true);
         try {
-            const response = await fetch(`http://${process.env.BACKEND_HOST}:${process.env.BACKEND_PORT}/api/wishlist/${wishlistId}`, {
+            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_PORT}:${process.env.REACT_APP_BACKEND_PORT}/api/wishlist/${wishlistId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`

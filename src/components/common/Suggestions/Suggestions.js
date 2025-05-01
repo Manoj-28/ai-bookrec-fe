@@ -18,7 +18,7 @@ export const Suggestions = () => {
     const fetchBooks = async (selectedGenre) => {
         setLoading(true);
         try {
-            const response = await fetch(`http://${process.env.BACKEND_HOST}:${process.env.BACKEND_PORT}/api/llm/search`, {
+            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/api/llm/search`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ query: `top ${selectedGenre} books` }),
@@ -61,7 +61,7 @@ export const Suggestions = () => {
         }
 
         try {
-            const response = await fetch(`http://${process.env.BACKEND_HOST}:${process.env.BACKEND_PORT}/api/wishlist`, {
+            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_PORT}:${process.env.REACT_APP_BACKEND_PORT}/api/wishlist`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
