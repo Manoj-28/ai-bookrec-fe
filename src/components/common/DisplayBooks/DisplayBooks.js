@@ -6,12 +6,14 @@ import { useBookmarks } from "../../context/BookmarkContext";
 
 export const DisplayBooks = () => {
     const [searchQuery, setSearchQuery] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const location = useLocation();
     const [books, setBooks] = useState(location.state?.books || []);
     const [showResults, setShowResults] = useState(false);
     const [selectedBook, setSelectedBook] = useState(null);
     const [topXBooks, setTopXBooks] = useState(location.state?.topXCount || 0);
     const [visibleRows, setVisibleRows] = useState(1); // Track how many rows to show
+    const [hasSearched, setHasSearched] = useState(false);
     const booksPerRow = 5; // Number of books per row
 
     useEffect(() => {
@@ -24,6 +26,8 @@ export const DisplayBooks = () => {
 
     const handleSearchSubmit = async () => {
         if (!searchQuery.trim()) return;
+        setIsLoading(true);
+        setHasSearched(true);
         try {
             const response = await fetch(`http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/api/llm/search`, {
                 method: "POST",
@@ -34,7 +38,6 @@ export const DisplayBooks = () => {
             });
             // const data = results;
             const data = await response.json();
-            console.log("search results: ", data);
 
             if (data.results) {
                 setBooks(data.results);
@@ -50,6 +53,9 @@ export const DisplayBooks = () => {
             }
         } catch (error) {
             console.error("Error fetching search results: ", error);
+        }
+        finally {
+            setIsLoading(false);
         }
     };
 
@@ -100,50 +106,60 @@ export const DisplayBooks = () => {
                         </button>
                     </div>
 
+                    {isLoading && (
+                        <div className="flex justify-center items-center py-8">
+                            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                        </div>
+                    )}
+
+
                     {/* Main results section */}
-                    {topXBooks > 0 && (
-                        <div className="mt-8">
-                            <h2 className="text-xl font-bold mb-4">Top {topXBooks} Results</h2>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                                {displayedBooks.slice(0, topXBooks).map((book) => (
-                                    <BookCard key={book.title} book={book} onClick={(book) => setSelectedBook(book)} />
-                                ))}
-                            </div>
-                        </div>
+                    {!isLoading && hasSearched && books.length > 0 && (
+                        <>
+                            {topXBooks > 0 && (
+                                <div className="mt-8">
+                                    <h2 className="text-xl font-bold mb-4">Top {topXBooks} Results</h2>
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                                        {displayedBooks.slice(0, topXBooks).map((book) => (
+                                            <BookCard key={book.title} book={book} onClick={(book) => setSelectedBook(book)} />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            {/* Similar books section */}
+                            {topXBooks > 0 && books.length > topXBooks && (
+                                <div className="mt-8">
+                                    <h2 className="text-xl font-bold mb-4">Similar Books</h2>
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                                        {displayedBooks.slice(topXBooks).map((book) => (
+                                            <BookCard key={book.title} book={book} onClick={(book) => setSelectedBook(book)} />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            {/* Regular results (non-top X queries) */}
+                            {topXBooks === 0 && (
+                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-4">
+                                    {displayedBooks.map((book) => (
+                                        <BookCard key={book.title} book={book} onClick={(book) => setSelectedBook(book)} />
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* Load More button */}
+                            {booksToShow < books.length && (
+                                <div className="flex justify-center mt-8">
+                                    <button
+                                        onClick={loadMoreBooks}
+                                        className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+                                    >
+                                        Load More Books
+                                    </button>
+                                </div>
+                            )}
+                        </>
                     )}
 
-                    {/* Similar books section */}
-                    {topXBooks > 0 && books.length > topXBooks && (
-                        <div className="mt-8">
-                            <h2 className="text-xl font-bold mb-4">Similar Books</h2>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                                {displayedBooks.slice(topXBooks).map((book) => (
-                                    <BookCard key={book.title} book={book} onClick={(book) => setSelectedBook(book)} />
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Regular results (non-top X queries) */}
-                    {topXBooks === 0 && (
-                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-4">
-                            {displayedBooks.map((book) => (
-                                <BookCard key={book.title} book={book} onClick={(book) => setSelectedBook(book)} />
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Load More button */}
-                    {booksToShow < books.length && (
-                        <div className="flex justify-center mt-8">
-                            <button
-                                onClick={loadMoreBooks}
-                                className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-200"
-                            >
-                                Load More Books
-                            </button>
-                        </div>
-                    )}
                 </div>
             </div>
             {selectedBook && (<BookDetailsModal book={selectedBook} onClose={() => setSelectedBook(null)} />)}

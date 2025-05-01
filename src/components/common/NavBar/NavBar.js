@@ -9,7 +9,6 @@ export const NavBar = ({ isProfileOpen, setProfileOpen }) => {
 
 	const toggleMobileMenu = () => {
 		setMobileMenuOpen(!isMobileMenuOpen);
-		console.log("MobileMenu: ", isMobileMenuOpen);
 	};
 
 	const toggleSearch = () => {
