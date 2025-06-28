@@ -10,7 +10,6 @@
 .env.*.local
 .npmrc
 .yarnrc
-package-lock.json
 
 # log files
 npm-debug.log*
