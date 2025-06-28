@@ -61,7 +61,7 @@ export const Suggestions = () => {
         }
 
         try {
-            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_PORT}:${process.env.REACT_APP_BACKEND_PORT}/api/wishlist`, {
+            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_HOST}/api/wishlist`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

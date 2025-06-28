@@ -83,7 +83,7 @@ export const Profile = ({ isProfileOpen, setProfileOpen }) => {
         const password = formData.get("password");
     
         try {
-            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_PORT}:${process.env.REACT_APP_BACKEND_PORT}/api/users/login`, {
+            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_HOST}/api/users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
