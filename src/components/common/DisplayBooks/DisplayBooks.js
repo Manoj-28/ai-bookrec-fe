@@ -29,7 +29,7 @@ export const DisplayBooks = () => {
         setIsLoading(true);
         setHasSearched(true);
         try {
-            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_HOST}/api/llm/search`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_HOST}/api/llm/search`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

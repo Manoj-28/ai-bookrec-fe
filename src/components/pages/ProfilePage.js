@@ -33,7 +33,7 @@ export const ProfilePage = () => {
 
         try {
             // Replace with your actual API call
-            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_HOST}/api/users/change-password`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_HOST}/api/users/change-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

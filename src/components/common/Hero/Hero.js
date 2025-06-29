@@ -27,7 +27,7 @@ export const HeroComponent = () => {
                 const [_, count, genre] = match;
                 query = `top ${count} ${genre.trim()} books`;
             }
-            const response = await fetch(`http://${process.env.REACT_APP_BACKEND_HOST}/api/llm/search`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_HOST}/api/llm/search`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
